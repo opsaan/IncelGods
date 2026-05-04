@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-const repoBase = process.env.VITE_REPO_BASE || '/IncelGods/';
+const repoBase = process.env.VITE_REPO_BASE || '/TrucelGods/';
 
 export default defineConfig({
   plugins: [react()],

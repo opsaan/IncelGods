@@ -25,7 +25,7 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-          VITE_REPO_BASE: /IncelGods/
+          VITE_REPO_BASE: /TrucelGods/
       - name: Deploy dist to gh-pages branch (git)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
