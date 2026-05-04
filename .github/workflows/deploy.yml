@@ -6,14 +6,16 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -26,27 +28,17 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_REPO_BASE: /TrucelGods/
-      - name: Deploy dist to gh-pages branch (git)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch origin gh-pages || true
-          if git ls-remote --exit-code --heads origin gh-pages; then
-            git switch --detach
-            git worktree add /tmp/gh-pages gh-pages
-          else
-            git switch --detach --orphan gh-pages
-            git rm -rf . >/dev/null 2>&1 || true
-            mkdir -p /tmp/gh-pages
-            git worktree add /tmp/gh-pages
-          fi
-          rm -rf /tmp/gh-pages/*
-          cp -r dist/. /tmp/gh-pages/
-          cd /tmp/gh-pages
-          touch .nojekyll
-          git add -A
-          git commit -m "Deploy ${GITHUB_SHA}" || echo "No changes to commit"
-          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:gh-pages --force
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
