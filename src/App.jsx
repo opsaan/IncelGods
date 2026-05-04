@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { NavBar } from './components/NavBar';
 import { PostCard } from './components/PostCard';
-import { supabase } from './lib/supabase';
+import { isSupabaseConfigured, supabase } from './lib/supabase';
 import { postSchema } from './lib/validation';
 
 function Board() {
@@ -135,6 +135,13 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_10%_20%,rgba(20,241,217,0.15),transparent_30%),radial-gradient(circle_at_90%_0%,rgba(130,90,255,0.2),transparent_35%)]">
       <NavBar />
+      {!isSupabaseConfigured ? (
+        <div className="max-w-5xl mx-auto px-3">
+          <div className="glass rounded-xl p-3 mb-4 text-amber-300 text-sm">
+            Supabase is not configured. Add <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_ANON_KEY</code> secrets/environment variables to enable posting and moderation.
+          </div>
+        </div>
+      ) : null}
       <Routes>
         <Route path="/" element={<Board />} />
         <Route path="/admin" element={<Admin />} />
