@@ -2,6 +2,10 @@
 
 A compact, high-performance, dark glassmorphism imageboard built for static hosting on GitHub Pages with a Supabase serverless backend.
 
+## Live Site
+
+- **Working link:** https://opsaan.github.io/IncelGods/
+
 ## Features
 
 - Fast static front-end with Vite + React.
@@ -68,7 +72,7 @@ Required values:
 
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_ANON_KEY`
-- `VITE_REPO_BASE` (for GitHub Pages repo path, default `/TrucelGods/`)
+- `VITE_REPO_BASE` (for GitHub Pages repo path, default `/IncelGods/`)
 
 ## Local Development
 
@@ -93,7 +97,7 @@ git init
 git add .
 git commit -m "Initial TrucelGods release"
 git branch -M main
-git remote add origin https://github.com/<YOUR_USERNAME>/TrucelGods.git
+git remote add origin https://github.com/<YOUR_USERNAME>/IncelGods.git
 git push -u origin main
 ```
 
@@ -127,6 +131,6 @@ In **Settings > Secrets and variables > Actions**, add:
 ## Notes
 
 - This app is static-hosted; all dynamic behavior is delegated to Supabase.
-- If your GitHub repo name differs from `TrucelGods`, update both:
+- If your GitHub repo name differs from `IncelGods`, update both:
   - `vite.config.js` `base`
   - `VITE_REPO_BASE` in environment/workflow

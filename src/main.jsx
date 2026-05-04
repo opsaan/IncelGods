@@ -6,7 +6,7 @@ import './styles/index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename={import.meta.env.VITE_REPO_BASE || '/TrucelGods/'}>
+    <BrowserRouter basename={import.meta.env.VITE_REPO_BASE || '/IncelGods/'}>
       <App />
     </BrowserRouter>
   </React.StrictMode>
